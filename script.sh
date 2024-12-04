@@ -1,11 +1,10 @@
-#!/bin/bash
 
-# Étape 1: Synchronisation avec Owncloud
+# Étape 1: Synchronisation avec le dossier 'sauvegarde' sur Owncloud
 echo "Étape 1: Synchronisation avec le dossier 'sauvegarde' sur Owncloud en cours..."
-remote_path="http://192.168.20.181/remote.php/dav/files/root/sauvegarde"
-local_path="/home/Owncloud-sync/"
+local_path="/home/Owncloud-sync/backup"         # Dossier local de synchronisation
 
-if owncloudcmd -u root -p sio2024 --sync-hidden-files -s "$local_path" "$remote_path"; then
+# Synchronisation avec Owncloud - on spécifie ici uniquement le dossier 'sauvegarde' du serveur
+if owncloudcmd -u root -p sio2024 --sync-hidden-files -s /home/Owncloud-sync http://192.168.20.181; then
     echo "Étape 1: Synchronisation avec le dossier 'sauvegarde' réussie."
 else
     echo "Étape 1: Erreur lors de la synchronisation avec le dossier 'sauvegarde'." >&2
@@ -14,7 +13,7 @@ fi
 
 # Étape 2: Recherche des fichiers .csv
 echo "Étape 2: Recherche des fichiers .csv..."
-csv_files=("$local_path"*.csv)
+csv_files=("$local_path"/*.csv)
 
 if [ ${#csv_files[@]} -eq 0 ]; then
     echo "Étape 2: Aucun fichier .csv trouvé à déplacer et compresser." >&2
@@ -50,7 +49,6 @@ for csv_file in "${csv_files[@]}"; do
         echo "Erreur lors de la suppression du fichier $new_file." >&2
         exit 1
     fi
-
     # Étape 4: Copie du fichier compressé vers /home/FTP/backup
     backup_dir="/home/FTP/backup"
     cp "$tar_file" "$backup_dir/"
@@ -73,3 +71,4 @@ done
 
 # Fin du script
 echo "Script terminé avec succès."
+
