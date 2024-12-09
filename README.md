@@ -8,7 +8,7 @@ Une fois réalisé, allez sur votre client Windows et installez : [OwnCloudClien
 
 Ensuite, connectez-vous avec un utilisateur et le client va automatiquement synchroniser vos fichiers !
 
-Vous pouvez ajouter des utilisateurs dans l'onglet utilisateur, cependant, ils doivent avoir une adresse email et un groupe.
+Vous pouvez ajouter des utilisateurs, ou aller dans les paramétres sur l'interface web de votre site : `IP de votre serveur`. dans l'onglet utilisateur, cependant, ils doivent avoir une adresse email et un groupe.
 
 Il existe également un "market" pour installer des extensions, ce qui étend les possibilités grandement, avec du LDAP par exemple, du SSL, ou encore un FTP, voire du MFA.
 
